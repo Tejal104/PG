@@ -1,0 +1,139 @@
+//Perform Stack Operations – Push, Pop, Peek and Display using Linked List.
+
+#include <iostream>
+using namespace std;
+struct Node {
+   int data;
+   struct Node *next;
+};
+struct Node* top = NULL;
+
+void push(int val) {
+   struct Node* newnode = (struct Node*) malloc(sizeof(struct Node));
+   newnode->data = val;
+   newnode->next = top;
+   top = newnode;
+}
+
+void pop() {
+   if(top==NULL)
+   cout<<"Stack Underflow"<<endl;
+   else {
+      cout<<"The popped element is "<< top->data <<endl;
+      top = top->next;
+   }
+}
+
+bool isEmpty() {
+    if (top == NULL) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+int peek()
+    {
+        // If stack is not empty , return the top element
+        if (!isEmpty())
+            return top->data;
+        else
+            exit(1);
+    }
+
+void display() {
+   struct Node* ptr;
+   if(top==NULL)
+   cout<<"Stack is empty";
+   else {
+      ptr = top;
+      cout<<"Stack elements are: ";
+      while (ptr != NULL) {
+         cout<< ptr->data <<" ";
+         ptr = ptr->next;
+      }
+   }
+   cout<<endl;
+}
+
+int main() {
+   int ch, val;
+   cout<<"1) Push in stack"<<endl;
+   cout<<"2) Pop from stack"<<endl;
+   cout<<"3) Peek from stack"<<endl;
+   cout<<"4) Display stack"<<endl;
+   do {
+      cout<<"Enter your choice: "<<endl;
+      cin>>ch;
+      switch(ch) {
+         case 1: {
+            cout<<"Enter the value to be pushed:"<<endl;
+            cin>>val;
+            push(val);
+            break;
+         }
+         case 2: {
+            pop();
+            break;
+         }
+         case 3: {
+            peek();
+            cout<<"Peek value is:"<<top->data<<endl;
+            break;
+         }
+         case 4: {
+            display();
+            break;
+         }
+         default: {
+            cout<<"Invalid Choice"<<endl;
+         }
+      }
+   }while(ch!=4);
+   return 0;
+}
+
+/*
+OUTPUT:
+
+PS C:\Users\tejal> cd "c:\Users\tejal\OneDrive\Desktop\" ; if ($?) { g++ stackopp.cpp -o stackopp } ; if ($?) { .\stackopp }
+1) Push in stack
+2) Pop from stack
+3) Peek from stack
+4) Display stack
+Enter your choice: 
+1
+Enter the value to be pushed:
+22
+Enter your choice: 
+1
+Enter the value to be pushed:
+33
+Enter your choice: 
+1
+Enter the value to be pushed:
+44
+Enter your choice: 
+1 
+Enter the value to be pushed:
+55
+Enter your choice: 
+2
+The popped element is 55
+Enter your choice: 
+3
+Peek value is:44
+Enter your choice: 
+2
+The popped element is 44
+Enter your choice:
+3
+Peek value is:33
+Enter your choice:
+5
+Invalid Choice
+Enter your choice:
+4
+Stack elements are: 33 22
+PS C:\Users\tejal\OneDrive\Desktop> 
+*/
