@@ -1,0 +1,645 @@
+//Single Linked List Operations
+
+#include<iostream>     
+using namespace std;
+
+//Node Decleration
+struct Node{
+    int data;
+    Node *next;
+};
+
+//Class Decleration
+class SingleLinkedList{
+    private:
+        Node *head = NULL;
+    
+    public:
+        void display();
+        void search_list();
+        void reverse();
+        void insert_at_beginning();
+        void insert_at_position(); 
+        void insert_at_end(); 
+        void delete_first(); 
+        void delete_at_position(); 
+        void delete_last();
+};
+
+void SingleLinkedList::search_list() { 
+    Node *temp = head;
+    int key; 
+    cout << "Enter the number to be searched : " << endl; 
+    cin >> key;
+    while (temp != NULL) { 
+        if (temp->data == key) { 
+            cout << "Item found !" << endl; 
+            temp = temp->next; 
+            } 
+        }
+    cout << "not found " << endl; 
+}
+
+void SingleLinkedList::insert_at_beginning() { 
+    Node *newnode; //create a new node 
+    newnode = new Node(); //allocate memoery dynamically
+    cout << "Enter the value to be inserted :" << endl;
+    int d; 
+    cin >> d;
+    newnode->data = d; 
+    newnode->next = head;
+    head = newnode; 
+}
+
+void SingleLinkedList::insert_at_end() { 
+    Node *new_node;
+    new_node = new Node(); 
+    cout << "Enter the value to be inserted :" << endl;
+    int d;
+    cin >> d; 
+    new_node->data = d; 
+    new_node->next = NULL;
+    if (head == NULL) { 
+        head = new_node; 
+        }
+    else {
+        Node *temp;
+        temp = head;
+        while (temp->next != NULL) { 
+            temp = temp->next;
+            }
+            temp->next = new_node; 
+        } 
+    } 
+
+void SingleLinkedList::insert_at_position() { 
+    Node *temp; 
+    temp = head;
+    int count = 0; 
+    cout << "Enter the position at which node to be inserted :" << endl;
+    int n;
+    cin >> n;
+    while (temp != NULL) { 
+        temp = temp->next; 
+        count++;
+        }
+         if (n > count) {
+            cout << "Position out of range...... You cannot add element at this list" << endl;
+            }
+        else if (n == 1) { 
+                insert_at_beginning(); 
+                }
+        else { 
+            Node *newnode;
+            newnode = new Node();
+            cout << "Enter the value to be inserted :" << endl;
+            int d;
+            cin >> d;
+            newnode->data = d;
+            Node *temp = head;
+            for (int i = 0; i < n - 1; i++) { 
+                temp = temp->next; 
+                }
+                newnode->next = temp->next; 
+                temp->next = newnode;
+        } 
+}
+
+void SingleLinkedList ::delete_first() { 
+    if (head == NULL) { 
+        cout << "The list is empty!!"; 
+        }
+    else { 
+        Node *ptr = head;
+        head = head->next; 
+        free(ptr); 
+        }
+} 
+
+void SingleLinkedList::delete_at_position() { 
+    Node *temp;
+    int count = 0; 
+    temp = head; 
+    while (temp != NULL) {
+        temp = temp->next;
+        count++;
+        }
+    int n; 
+    cout << "Enter the position of value to be deleted:" << endl; 
+    cin >> n;
+    if (n > count) { 
+        cout << "Position out of range!!";
+        }
+    else { 
+        temp = head; 
+        for (int i = 0; i < n - 1; i++) {
+            temp = temp->next; /* code */
+            }
+            temp->next = temp->next->next;
+            } 
+}
+
+void SingleLinkedList::delete_last() { 
+    if (head != NULL) {
+        Node *temp;
+        Node *temp1;
+        temp = head->next;
+        temp1 = head; 
+        
+        while (temp->next != NULL) { 
+            temp1 = temp;
+            temp = temp->next; 
+            }
+            free(temp);/////// 
+            temp1->next = NULL;
+        }
+    else {
+        cout << "No elements are been entered in the list!!" << endl;
+        } 
+}
+
+void SingleLinkedList::display() { 
+   struct Node *temp; 
+    temp = head;
+    while (temp != NULL) { 
+        cout << temp->data << " "<<endl;
+         temp = temp->next;
+        }
+}
+
+void SingleLinkedList::reverse() { 
+    Node*pre=NULL;
+    Node*curr=head;
+    Node*nextptr;
+    while(curr!=NULL){
+        nextptr=curr->next;
+        curr->next=pre;
+        pre=curr; 
+        curr=nextptr;
+        }
+        head= pre; 
+} 
+
+int main()
+{
+    SingleLinkedList s;
+    int choice;
+    do {
+        cout << "---------------------------------------------" << endl; 
+        cout << "\nSingle Linked List Operations" << endl; 
+        cout << "---------------------------------------------" << endl; 
+        cout << "1.Insert node at beginning" << endl; 
+        cout << "2.Insert node at given position" << endl;
+        cout << "3.Insert node at end" << endl;
+        cout << "4.Delete node at beginning" << endl;
+        cout << "5.Delete node at end" << endl;
+        cout << "6.Delete node at given position" << endl;
+        cout << "7.Search Linked list" << endl;
+        cout << "8.Display Linked list" << endl;
+        cout << "9.Reverse" << endl; 
+        cout << "10.Exit" << endl;
+        cout << "---------------------------------------------" << endl; 
+        cout << "Enter your choice:" << endl; 
+        cin >> choice; 
+
+    switch (choice) { 
+
+    case 1:
+        cout<<"Inserting Node at Beginning! "<<endl;
+        s.insert_at_beginning(); 
+        break; 
+
+    case 2:
+        cout<<"Inserting Node at a given position!"<<endl;
+        s.insert_at_position();
+        break; 
+    
+    case 3: 
+        cout<<"Inserting Node at End! "<<endl;
+        s.insert_at_end();
+        break;
+
+    case 4:
+        cout<<"Deleting the first node! "<<endl;
+        s.delete_first();
+        break;
+
+    case 5: 
+        cout<<"Deleting the a last node! "<<endl;
+        s.delete_last();
+        break; 
+
+    case 6:
+        cout<<"Deleting a particular node! "<<endl;
+        s.delete_at_position(); 
+        break; 
+
+    case 7:
+        cout<<"Searching element in Link List! "<<endl; 
+        s.search_list();
+        break; 
+
+    case 8:
+        cout<<"Displaying elements of link list! "<<endl;
+        s.display(); 
+        break; 
+
+    case 9: 
+        cout<<"Reversing the elements of Link List! "<<endl;
+        s.reverse();
+        break; 
+
+    default: 
+        cout << "Invalid choice entered!!" << endl;
+        break;
+        }
+    } 
+    while (choice != 10); 
+    return 0;   
+}
+
+
+/*
+OUTPUT:
+
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+1
+Inserting Node at Beginning! 
+Enter the value to be inserted :
+22
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+2
+Inserting Node at a given position!
+Enter the position at which node to be inserted :
+1
+Enter the value to be inserted :
+33
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+3
+Inserting Node at End!
+Enter the value to be inserted :
+44
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+8
+Displaying elements of link list!
+33
+22
+44
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+4
+Deleting the first node!
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+8
+Displaying elements of link list!
+22
+44
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+1
+Inserting Node at Beginning!
+Enter the value to be inserted :
+88
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+1
+Inserting Node at Beginning!
+Enter the value to be inserted :
+99
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+3
+Inserting Node at End!
+Enter the value to be inserted :
+55
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+8
+Displaying elements of link list!
+99
+88
+22
+44
+55
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+4
+Deleting the first node!
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+8
+Displaying elements of link list!
+88
+22
+44
+55
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+5
+Deleting the a last node!
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+8
+Displaying elements of link list!
+88
+22
+44
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+6
+Deleting a particular node!
+Enter the position of value to be deleted:
+2
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+8
+Displaying elements of link list!
+88
+22
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+9
+Reversing the elements of Link List!
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+8
+Displaying elements of link list!
+22
+88
+---------------------------------------------
+
+Single Linked List Operations
+---------------------------------------------
+1.Insert node at beginning
+2.Insert node at given position
+3.Insert node at end
+4.Delete node at beginning
+5.Delete node at end
+6.Delete node at given position
+7.Search Linked list
+8.Display Linked list
+9.Reverse
+10.Exit
+---------------------------------------------
+Enter your choice:
+10
+Invalid choice entered!!
+PS C:\Users\tejal\Downloads\New folder\ADS Lab> 
+*/
