@@ -150,7 +150,7 @@ void SingleLinkedList::delete_last() {
             temp1 = temp;
             temp = temp->next; 
             }
-            free(temp);/////// 
+            free(temp);
             temp1->next = NULL;
         }
     else {
